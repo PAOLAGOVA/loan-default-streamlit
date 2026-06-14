@@ -255,9 +255,20 @@ if st.button("Predict Default Risk"):
             st.markdown("### ⚠ Factors Increasing Risk")
         
             for feature in positive_features:
-        
+            
+                impact = abs(feature["shap_value"])
+            
+                if impact > 1:
+                    strength = "strongly"
+            
+                elif impact > 0.3:
+                    strength = "moderately"
+            
+                else:
+                    strength = "slightly"
+            
                 st.error(
-                    f"{feature['feature']} increased the probability of default."
+                    f"{feature['feature']} {strength} increased the probability of default."
                 )
         
         with col2:
@@ -265,9 +276,20 @@ if st.button("Predict Default Risk"):
             st.markdown("### ✅ Factors Reducing Risk")
         
             for feature in negative_features:
-        
+
+                impact = abs(feature["shap_value"])
+            
+                if impact > 1:
+                    strength = "strongly"
+            
+                elif impact > 0.3:
+                    strength = "moderately"
+            
+                else:
+                    strength = "slightly"
+            
                 st.success(
-                    f"{feature['feature']} reduced the probability of default."
+                    f"{feature['feature']} {strength} reduced the probability of default."
                 )
     else:
 
